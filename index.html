@@ -291,3 +291,39 @@
     </footer>
 </body>
 </html>
+
+<script>
+async function askAuraGoldAssistant(userMessage) {
+    const apiKey = 
+    // استخدام نموذج gemini-2.5-flash أو gemini-1.5-flash المتاح للـ API
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    const data = {
+        contents: [
+            {
+                role: "user",
+                parts: [{ text: userMessage }]
+            }
+        ],
+        // وضع التعليمات (System Instruction) لتوجيه المساعد ليكون رسمياً وخاصاً بالموقع فقط
+        systemInstruction: {
+            parts: [{ text: `أنت المساعد الرسمي لموقع "Aura Gold" للمجوهرات والذهب. مهمتك الأساسية هي الإجابة عن استفسارات الزوار المتعلقة بالمنتجات، الأسعار، والخدمات الخاصة بالموقع فقط بأسلوب رسمي، راقي، وودود يشبه خدمة العملاء المحترفين.\nقواعد صارمة:\n1. الالتزام بالموقع فقط: إذا سأل الزائر عن أي شيء خارج نطاق الذهب، والمجوهرات، أو موقع Aura Gold، اعتذر بأدب شديد واعرض عليه مساعدته فيما يخص منتجات الموقع فقط.\n2. تجنب التكرار: لا تكرر نفس الجملة الثابتة أبداً، افهم قصد السائل وصغ إجابتك بطريقة طبيعية ومباشرة وكأنك موظف مبيعات بشري يتحدث بطلاقة.\n3. الأسلوب: استخدم لغة عربية فصحى رسمية ولكنها سلسة ومريحة للزائر.` }]
+        }
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        const reply = result.candidates[0].content.parts[0].text;
+        return reply;
+    } catch (error) {
+        console.error("خطأ في الاتصال:", error);
+        return "عذراً يا فندم، حدث خطأ بسيط. كيف يمكنني مساعدتك بخصوص مجوهرات Aura Gold؟";
+    }
+}
+</script>
