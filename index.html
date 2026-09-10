@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraGold | أسعار الذهب في الوطن العربي والعالم</title>
+    <title>Aura Gold | المنصة العالمية لأسعار الذهب</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -18,23 +18,25 @@
             }
         }
     </script>
+    <!-- Alpine.js لإدارة الصفحات والتفاعل -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 min-h-screen flex flex-col justify-between" 
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between" 
       x-data="{ currentView: 'home', selectedCarat: null }">
 
     <div>
         <!-- شريط الأسعار المتحرك -->
-        <div class="bg-amber-500 text-slate-950 font-bold text-sm py-1.5 overflow-hidden whitespace-nowrap shadow-inner">
-            <div class="inline-block animate-marquee px-4">
-                🔴 أونصة الذهب عالمياً: <span class="underline">2,650.00 $</span> | تحديث مباشر لأسواق الذهب العربية والعالمية.
+        <div class="bg-amber-500 text-slate-950 font-bold text-sm py-2 overflow-hidden whitespace-nowrap shadow-md">
+            <div class="inline-block animate-pulse px-4">
+                🔴 أونصة الذهب عالمياً: <span class="underline">2,650.00 $</span> | التحديث اليومي تلقائي ومستمر لجميع الأسواق العربية.
             </div>
         </div>
 
         <!-- الشريط العلوي (Navbar) -->
-        <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+        <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-                <!-- الشعار (يعود للرئيسية) -->
-                <div @click="currentView = 'home'" class="flex items-center gap-3 cursor-pointer">
+                <!-- الشعار -->
+                <div @click="currentView = 'home'; selectedCarat = null;" class="flex items-center gap-3 cursor-pointer">
                     <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-2.5 rounded-xl shadow-lg shadow-amber-500/20">
                         <svg class="w-7 h-7 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
@@ -44,149 +46,137 @@
                     </div>
                 </div>
 
-                <!-- أزرار التنقل والتحكم -->
+                <!-- أزرار التنقل -->
                 <div class="flex items-center gap-4">
-                    <button @click="currentView = 'home'" class="text-sm font-semibold hover:text-amber-500 transition hidden sm:inline-block">الرئيسية</button>
-                    <button onclick="document.documentElement.classList.toggle('dark')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:scale-105 transition shadow-sm">
-                        🌙 / ☀️
+                    <button @click="currentView = 'home'; selectedCarat = null;" class="text-sm font-semibold hover:text-amber-500 transition hidden sm:inline-block">الرئيسية</button>
+                    <!-- زر تسجيل الدخول (جاهز للربط المستقبلي) -->
+                    <button onclick="alert('سيتم تفعيل نظام تسجيل الدخول عبر Firebase قريباً!')" class="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm shadow-lg shadow-amber-500/20 transition">
+                        تسجيل الدخول
                     </button>
-                    <button class="bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow-md">تسجيل الدخول</button>
                 </div>
             </div>
         </header>
 
-        <!-- المحتوى الديناميكي (SPA Views) -->
+        <!-- المحتوى الرئيسي للموقع -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-            <!-- مساحة إعلانية علوية -->
-            <div class="w-full bg-slate-200 dark:bg-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-4 text-center text-slate-400 text-sm">
-                مساحة إعلانية مميزة (Google AdSense Banner)
+            <!-- الإعلان الحقيقي من اختيارك (بدون مساحات فارغة) -->
+            <div class="bg-gradient-to-r from-amber-950/60 via-slate-900 to-amber-950/60 border border-amber-500/40 rounded-3xl p-6 flex flex-col sm:flex-row justify-between items-center shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
+                <div class="flex items-center gap-4 z-10 mb-4 sm:mb-0">
+                    <div class="bg-amber-500 text-slate-950 font-black p-3.5 rounded-2xl text-xl shadow-lg">
+                        🥇
+                    </div>
+                    <div>
+                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">عرض حصري واستثماري</span>
+                        <h4 class="font-black text-white text-lg mt-0.5">سبائك ذهب عيار 24 بأقل قيمة مصنعية في السوق</h4>
+                        <p class="text-xs text-slate-400 mt-1">استثمر أموالك بأمان تام مع خدمة التوصيل الموثوق والضمان المعتمد.</p>
+                    </div>
+                </div>
+                <a href="#buy" onclick="alert('تم النقر على الإعلان الاستثماري!')" class="z-10 bg-amber-500 hover:bg-amber-600 text-slate-950 font-black px-6 py-3 rounded-xl text-sm transition shadow-lg shadow-amber-500/25">
+                    اطلب السبيكة الآن &rarr;
+                </a>
             </div>
 
-            <!-- ================= الصفحة الرئيسية (Home View) ================= -->
+            <!-- ================= الصفحة الرئيسية (Home) ================= -->
             <div x-show="currentView === 'home'" class="space-y-8">
                 <div class="text-center max-w-2xl mx-auto space-y-3">
-                    <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">أسعار الذهب اللحظية في الدول العربية والعالم</h1>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">اختر العيار المطلوب لعرض تفاصيله الكاملة ومقارنة أسعاره في مختلف الدول العربية.</p>
+                    <h1 class="text-3xl sm:text-4xl font-black text-white">أسعار الذهب اللحظية في مصر والوطن العربي</h1>
+                    <p class="text-slate-400 text-sm">اختر العيار أدناه لمعرض تفاصيله الكاملة وجدول مقارنة الأسعار في الدول العربية.</p>
                 </div>
 
-                <!-- بطاقات الأعيرة (تأخذك لصفحة العيار المستقلة) -->
+                <!-- شبكة الأعيرة الرئيسية -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- عيار 24 -->
-                    <div @click="currentView = 'carat-page'; selectedCarat = 24;" class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 cursor-pointer group hover:border-amber-500 transition transform hover:-translate-y-1">
+                    <div @click="currentView = 'carat-page'; selectedCarat = 24;" class="bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-800 cursor-pointer group hover:border-amber-500 transition transform hover:-translate-y-1">
                         <div class="flex justify-between items-start">
                             <span class="text-xs font-semibold text-slate-400 uppercase">العيار الأنقـى</span>
-                            <span class="bg-amber-500/10 text-amber-500 text-xs px-2.5 py-1 rounded-full font-bold">عيار 24</span>
+                            <span class="bg-amber-500/10 text-amber-500 text-xs px-3 py-1 rounded-full font-bold">عيار 24</span>
                         </div>
                         <div class="mt-4">
-                            <h2 class="text-3xl font-black text-slate-900 dark:text-white">$85.20 <span class="text-xs text-slate-400 font-normal">/جرام</span></h2>
-                            <p class="text-xs text-amber-500 mt-2 font-semibold group-hover:underline">عرض الأسعار والمقارنة العربية &rarr;</p>
+                            <h2 class="text-3xl font-black text-white">7,150 ج.م <span class="text-xs text-slate-400 font-normal">/جرام</span></h2>
+                            <p class="text-xs text-amber-500 mt-3 font-semibold group-hover:underline">عرض الأسعار ومقارنة الدول العربية &rarr;</p>
                         </div>
                     </div>
 
                     <!-- عيار 21 -->
-                    <div @click="currentView = 'carat-page'; selectedCarat = 21;" class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 cursor-pointer group hover:border-amber-500 transition transform hover:-translate-y-1">
+                    <div @click="currentView = 'carat-page'; selectedCarat = 21;" class="bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-800 cursor-pointer group hover:border-amber-500 transition transform hover:-translate-y-1">
                         <div class="flex justify-between items-start">
-                            <span class="text-xs font-semibold text-slate-400 uppercase">الأكثر مبيعاً وشعبية</span>
-                            <span class="bg-amber-500/10 text-amber-500 text-xs px-2.5 py-1 rounded-full font-bold">عيار 21</span>
+                            <span class="text-xs font-semibold text-slate-400 uppercase">الأكثر مبيعاً</span>
+                            <span class="bg-amber-500/10 text-amber-500 text-xs px-3 py-1 rounded-full font-bold">عيار 21</span>
                         </div>
                         <div class="mt-4">
-                            <h2 class="text-3xl font-black text-slate-900 dark:text-white">$74.55 <span class="text-xs text-slate-400 font-normal">/جرام</span></h2>
-                            <p class="text-xs text-amber-500 mt-2 font-semibold group-hover:underline">عرض الأسعار والمقارنة العربية &rarr;</p>
+                            <h2 class="text-3xl font-black text-white">6,250 ج.م <span class="text-xs text-slate-400 font-normal">/جرام</span></h2>
+                            <p class="text-xs text-amber-500 mt-3 font-semibold group-hover:underline">عرض الأسعار ومقارنة الدول العربية &rarr;</p>
                         </div>
                     </div>
 
                     <!-- عيار 18 -->
-                    <div @click="currentView = 'carat-page'; selectedCarat = 18;" class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 cursor-pointer group hover:border-amber-500 transition transform hover:-translate-y-1">
+                    <div @click="currentView = 'carat-page'; selectedCarat = 18;" class="bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-800 cursor-pointer group hover:border-amber-500 transition transform hover:-translate-y-1">
                         <div class="flex justify-between items-start">
                             <span class="text-xs font-semibold text-slate-400 uppercase">المجوهرات والحلي</span>
-                            <span class="bg-amber-500/10 text-amber-500 text-xs px-2.5 py-1 rounded-full font-bold">عيار 18</span>
+                            <span class="bg-amber-500/10 text-amber-500 text-xs px-3 py-1 rounded-full font-bold">عيار 18</span>
                         </div>
                         <div class="mt-4">
-                            <h2 class="text-3xl font-black text-slate-900 dark:text-white">$63.90 <span class="text-xs text-slate-400 font-normal">/جرام</span></h2>
-                            <p class="text-xs text-amber-500 mt-2 font-semibold group-hover:underline">عرض الأسعار والمقارنة العربية &rarr;</p>
+                            <h2 class="text-3xl font-black text-white">5,350 ج.م <span class="text-xs text-slate-400 font-normal">/جرام</span></h2>
+                            <p class="text-xs text-amber-500 mt-3 font-semibold group-hover:underline">عرض الأسعار ومقارنة الدول العربية &rarr;</p>
                         </div>
                     </div>
                 </div>
             </div>
 
 
-            <!-- ================= صفحة العيار المخصصة مع مقارنة الدول (Carat View) ================= -->
+            <!-- ================= صفحة العيار ومقارنة الدول (Carat View) ================= -->
             <div x-show="currentView === 'carat-page'" class="space-y-8">
                 <!-- زر العودة -->
-                <button @click="currentView = 'home'" class="flex items-center gap-2 text-sm font-bold text-amber-500 bg-amber-500/10 px-4 py-2 rounded-xl hover:bg-amber-500/20 transition">
+                <button @click="currentView = 'home'; selectedCarat = null;" class="flex items-center gap-2 text-sm font-bold text-amber-500 bg-amber-500/10 px-4 py-2.5 rounded-xl hover:bg-amber-500/20 transition">
                     &larr; العودة للرئيسية والأسواق
                 </button>
 
-                <!-- رأس الصفحة -->
-                <div class="bg-gradient-to-r from-amber-500/20 to-yellow-500/5 p-8 rounded-3xl border border-amber-500/30 flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- رأس صفحة العيار -->
+                <div class="bg-gradient-to-r from-amber-500/20 to-slate-900 p-8 rounded-3xl border border-amber-500/30 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
-                        <span class="text-xs font-bold text-amber-500 uppercase tracking-widest">تقرير شامل ومقارنة إقليمية</span>
-                        <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mt-1">
+                        <span class="text-xs font-bold text-amber-500 uppercase tracking-widest">تقرير إقليمي مفصل</span>
+                        <h1 class="text-3xl sm:text-4xl font-black text-white mt-1">
                             سعر جرام الذهب <span x-text="'عيار ' + selectedCarat" class="text-amber-500"></span>
                         </h1>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">جدول مقارنة مباشر لأسعار الذهب لهذا العيار في أهم أسواق الدول العربية مقارنة بالسعر العالمي.</p>
-                    </div>
-                    <div class="bg-white dark:bg-slate-900 px-6 py-4 rounded-2xl shadow-xl text-center border border-slate-200 dark:border-slate-800">
-                        <span class="text-xs text-slate-400 block">السعر العالمي المرجعي</span>
-                        <span class="text-2xl font-black text-slate-900 dark:text-white" x-text="selectedCarat == 24 ? '$85.20' : (selectedCarat == 21 ? '$74.55' : '$63.90')"></span>
+                        <p class="text-slate-400 text-sm mt-2">جدول دقيق ومحدث لأسعار الذهب لهذا العيار في مصر وأبرز الدول العربية.</p>
                     </div>
                 </div>
 
-                <!-- مساحة إعلانية وسطية -->
-                <div class="w-full bg-slate-200 dark:bg-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-3 text-center text-slate-400 text-xs">
-                    مساحة إعلانية داخلية مخصصة
-                </div>
-
-                <!-- جدول مقارنة أسعار الدول العربية -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
-                    <div class="p-6 border-b border-slate-100 dark:border-slate-800">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">مقارنة أسعار العيار في الدول العربية</h3>
+                <!-- جدول المقارنة العربية -->
+                <div class="bg-slate-900 rounded-3xl shadow-xl border border-slate-800 overflow-hidden">
+                    <div class="p-6 border-b border-slate-800">
+                        <h3 class="text-xl font-bold text-white">مقارنة الأسعار في الوطن العربي</h3>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-right border-collapse">
                             <thead>
-                                <tr class="bg-slate-100 dark:bg-slate-800/50 text-slate-400 text-xs uppercase">
-                                    <th class="p-4">الدولة / السوق</th>
+                                <tr class="bg-slate-800/50 text-slate-400 text-xs uppercase">
+                                    <th class="p-4">الدولة</th>
                                     <th class="p-4">السعر بالعملة المحلية</th>
-                                    <th class="p-4">السعر بمعادل الدولار ($)</th>
-                                    <th class="p-4">حالة السوق اليوم</th>
+                                    <th class="p-4">الحالة</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-sm">
-                                <!-- السعودية -->
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition">
-                                    <td class="p-4 font-bold flex items-center gap-2">🇸🇦 المملكة العربية السعودية</td>
-                                    <td class="p-4 font-semibold" x-text="selectedCarat == 24 ? '319.50 ريال' : (selectedCarat == 21 ? '279.60 ريال' : '239.60 ريال')"></td>
-                                    <td class="p-4 text-slate-500" x-text="selectedCarat == 24 ? '$85.20' : (selectedCarat == 21 ? '$74.55' : '$63.90')"></td>
-                                    <td class="p-4"><span class="bg-emerald-500/10 text-emerald-500 text-xs px-2.5 py-1 rounded-full font-bold">مستقر 🟢</span></td>
-                                </tr>
-                                <!-- مصر -->
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition">
+                            <tbody class="divide-y divide-slate-800 text-sm">
+                                <tr class="hover:bg-slate-800/30 transition">
                                     <td class="p-4 font-bold flex items-center gap-2">🇪🇬 جمهورية مصر العربية</td>
-                                    <td class="p-4 font-semibold" x-text="selectedCarat == 24 ? '4,150 جنيه' : (selectedCarat == 21 ? '3,630 جنيه' : '3,110 جنيه')"></td>
-                                    <td class="p-4 text-slate-500" x-text="selectedCarat == 24 ? '$85.40' : (selectedCarat == 21 ? '$74.70' : '$64.00')"></td>
+                                    <td class="p-4 font-semibold text-amber-400" x-text="selectedCarat == 24 ? '7,150 جنيه' : (selectedCarat == 21 ? '6,250 جنيه' : '5,350 جنيه')"></td>
                                     <td class="p-4"><span class="bg-emerald-500/10 text-emerald-500 text-xs px-2.5 py-1 rounded-full font-bold">نشط 🟢</span></td>
                                 </tr>
-                                <!-- الإمارات -->
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition">
+                                <tr class="hover:bg-slate-800/30 transition">
+                                    <td class="p-4 font-bold flex items-center gap-2">🇸🇦 المملكة العربية السعودية</td>
+                                    <td class="p-4 font-semibold text-amber-400" x-text="selectedCarat == 24 ? '319.50 ريال' : (selectedCarat == 21 ? '279.60 ريال' : '239.60 ريال')"></td>
+                                    <td class="p-4"><span class="bg-emerald-500/10 text-emerald-500 text-xs px-2.5 py-1 rounded-full font-bold">مستقر 🟢</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/30 transition">
                                     <td class="p-4 font-bold flex items-center gap-2">🇦🇪 دولة الإمارات العربية المتحدة</td>
-                                    <td class="p-4 font-semibold" x-text="selectedCarat == 24 ? '313.00 درهم' : (selectedCarat == 21 ? '274.00 درهم' : '234.80 درهم')"></td>
-                                    <td class="p-4 text-slate-500" x-text="selectedCarat == 24 ? '$85.20' : (selectedCarat == 21 ? '$74.55' : '$63.90')"></td>
+                                    <td class="p-4 font-semibold text-amber-400" x-text="selectedCarat == 24 ? '313.00 درهم' : (selectedCarat == 21 ? '274.00 درهم' : '234.80 درهم')"></td>
                                     <td class="p-4"><span class="bg-emerald-500/10 text-emerald-500 text-xs px-2.5 py-1 rounded-full font-bold">مستقر 🟢</span></td>
                                 </tr>
-                                <!-- الكويت -->
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition">
+                                <tr class="hover:bg-slate-800/30 transition">
                                     <td class="p-4 font-bold flex items-center gap-2">🇰🇼 دولة الكويت</td>
-                                    <td class="p-4 font-semibold" x-text="selectedCarat == 24 ? '26.20 دينار' : (selectedCarat == 21 ? '22.90 دينار' : '19.65 دينار')"></td>
-                                    <td class="p-4 text-slate-500" x-text="selectedCarat == 24 ? '$85.30' : (selectedCarat == 21 ? '$74.60' : '$63.95')"></td>
-                                    <td class="p-4"><span class="bg-emerald-500/10 text-emerald-500 text-xs px-2.5 py-1 rounded-full font-bold">مستقر 🟢</span></td>
-                                </tr>
-                                <!-- الأردن -->
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition">
-                                    <td class="p-4 font-bold flex items-center gap-2">🇯🇴 المملكة الأردنية الهاشمية</td>
-                                    <td class="p-4 font-semibold" x-text="selectedCarat == 24 ? '60.40 دينار' : (selectedCarat == 21 ? '52.85 دينار' : '45.30 دينار')"></td>
-                                    <td class="p-4 text-slate-500" x-text="selectedCarat == 24 ? '$85.20' : (selectedCarat == 21 ? '$74.55' : '$63.90')"></td>
+                                    <td class="p-4 font-semibold text-amber-400" x-text="selectedCarat == 24 ? '26.20 دينار' : (selectedCarat == 21 ? '22.90 دينار' : '19.65 دينار')"></td>
                                     <td class="p-4"><span class="bg-emerald-500/10 text-emerald-500 text-xs px-2.5 py-1 rounded-full font-bold">مستقر 🟢</span></td>
                                 </tr>
                             </tbody>
@@ -198,12 +188,10 @@
         </main>
     </div>
 
-    <!-- تذييل الصفحة (Footer) -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 text-center text-sm text-slate-400">
+    <!-- تذييل الصفحة -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-8 mt-12 text-center text-sm text-slate-400">
         <p>جميع الحقوق محفوظة © 2026 - منصة AURA GOLD العالمية لمعادن الثمينة.</p>
     </footer>
 
-    <!-- Alpine.js لإدارة الصفحات بدون إعادة تحميل -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>
