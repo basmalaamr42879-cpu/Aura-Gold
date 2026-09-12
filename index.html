@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title x-text="lang === 'ar' ? 'Aura Gold | أسعار الذهب الحقيقية واللحظية' : 'Aura Gold | Real-Time Live Gold Prices'"></title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -27,7 +27,17 @@
         }
     </script>
     <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://jsdelivr.net"></script>
+
+    <!-- Google tag (gtag.js) - Aura Gold Tracking -->
+    <script async src="https://googletagmanager.com"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DKV2TXWG37');
+    </script>
 </head>
 <body class="bg-slate-950 text-slate-100 dark:bg-slate-950 dark:text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-300" 
       :class="{ 'bg-slate-50 text-slate-900': !darkMode }"
@@ -55,7 +65,7 @@
               setTimeout(() => {
                   let reply = 'يمكنك الاعتماد على الحاسبة في الأسفل لمعرفة السعر الدقيق شامل المصنعية والدمغة.';
                   if(userText.includes('سعر') || userText.includes('21')) {
-                      reply = 'سعر جرام عيار 21 الآن في الصاغة حوالي 6,280 جنيه مصري.';
+                      reply = 'سعر جرام عيار 21 الآن in الصاغة حوالي 6,280 جنيه مصري.';
                   } else if(userText.includes('أونصة') || userText.includes('ounce')) {
                       reply = 'سعر أونصة الذهب عالمياً يتداول عند حدود $' + this.liveGoldOunce.toLocaleString();
                   } else if(userText.includes('24')) {
@@ -87,11 +97,11 @@
 
           fetchLivePrices() {
               this.isLiveLoading = true;
-              fetch('https://data-asg.goldprice.org/dbXRates/USD')
+              fetch('https://goldprice.org')
                   .then(response => response.json())
                   .then(data => {
-                      if(data && data.items && data.items[0]) {
-                          this.liveGoldOunce = data.items[0].xauPrice;
+                      if(data && data.items && data.items) {
+                          this.liveGoldOunce = data.items.xauPrice;
                       }
                       this.isLiveLoading = false;
                   })
@@ -144,186 +154,11 @@
                     <button @click="toggleLang()" class="text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 hover:border-amber-500 text-amber-400 transition" x-text="lang === 'ar' ? 'English 🇺🇸' : 'العربية 🇪🇬'"></button>
                     <button @click="darkMode = !darkMode" class="p-2.5 rounded-xl border border-slate-700 hover:border-amber-500 text-amber-400 transition">
                         <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        <svg x-show="!darkMode" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg x-show="!darkMode" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003"></svg>
                     </button>
                 </div>
             </div>
         </header>
-
-        <!-- المحتوى الرئيسي -->
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-            <div x-show="currentView === 'home'" class="space-y-12">
-                <div class="text-center max-w-2xl mx-auto space-y-3">
-                    <h1 class="text-3xl sm:text-4xl font-black text-white dark:text-white" :class="{ 'text-slate-900': !darkMode }">أسعار الذهب الحقيقية والواقعية في مصر</h1>
-                    <p class="text-slate-400 text-sm">أسعار دقيقة ومحدثة تطابق تماماً تداولات السوق المحلي وحركة الصاغة بدون أي أرقام افتراضية.</p>
-                </div>
-
-                <!-- كروت الأسعار الحقيقية -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- عيار 24 -->
-                    <div @click="currentView = 'carat-page'; selectedCarat = 24;" class="bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-800 cursor-pointer group hover:border-amber-500 transition" :class="{ 'bg-white border-slate-200': !darkMode }">
-                        <span class="text-xs text-slate-400 font-semibold uppercase">عيار 24 (السبائك والأنقى)</span>
-                        <div class="mt-4">
-                            <h2 class="text-3xl font-black text-white dark:text-white" :class="{ 'text-slate-900': !darkMode }"><span x-text="baseGramPrice24.toLocaleString()"></span> ج.م</h2>
-                            <p class="text-xs text-amber-500 mt-2">سعر البيع للجرام في الصاغة</p>
-                        </div>
-                    </div>
-                    <!-- عيار 21 -->
-                    <div @click="currentView = 'carat-page'; selectedCarat = 21;" class="bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-800 cursor-pointer group hover:border-amber-500 transition" :class="{ 'bg-white border-slate-200': !darkMode }">
-                        <span class="text-xs text-slate-400 font-semibold uppercase">عيار 21 (الأكثر مبيعاً بمصر)</span>
-                        <div class="mt-4">
-                            <h2 class="text-3xl font-black text-white dark:text-white" :class="{ 'text-slate-900': !darkMode }"><span x-text="baseGramPrice21.toLocaleString()"></span> ج.م</h2>
-                            <p class="text-xs text-amber-500 mt-2">سعر البيع للجرام في الصاغة</p>
-                        </div>
-                    </div>
-                    <!-- عيار 18 -->
-                    <div @click="currentView = 'carat-page'; selectedCarat = 18;" class="bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-800 cursor-pointer group hover:border-amber-500 transition" :class="{ 'bg-white border-slate-200': !darkMode }">
-                        <span class="text-xs text-slate-400 font-semibold uppercase">عيار 18 (المجوهرات والحلي)</span>
-                        <div class="mt-4">
-                            <h2 class="text-3xl font-black text-white dark:text-white" :class="{ 'text-slate-900': !darkMode }"><span x-text="baseGramPrice18.toLocaleString()"></span> ج.م</h2>
-                            <p class="text-xs text-amber-500 mt-2">سعر البيع للجرام في الصاغة</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- الحاسبة الذكية بالأسعار الحقيقية -->
-                <section class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" :class="{ 'bg-white border-slate-200': !darkMode }">
-                    <div class="space-y-4">
-                        <span class="text-xs font-bold text-amber-500 uppercase">حاسبة مشغولات دقيقة</span>
-                        <h3 class="text-2xl font-black text-white dark:text-white" :class="{ 'text-slate-900': !darkMode }">حساب تكلفة الذهب شاملة المصنعية</h3>
-                        <div class="space-y-3 pt-2">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-400 mb-1">الوزن (جرام):</label>
-                                <input type="number" x-model.number="calcWeight" min="1" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold focus:outline-none focus:border-amber-500" :class="{ 'bg-slate-100 text-slate-900 border-slate-300': !darkMode }">
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1">العيار:</label>
-                                    <select x-model.number="calcCarat" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold focus:outline-none focus:border-amber-500" :class="{ 'bg-slate-100 text-slate-900 border-slate-300': !darkMode }">
-                                        <option value="24">عيار 24</option>
-                                        <option value="21">عيار 21</option>
-                                        <option value="18">عيار 18</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1">المصنعية والدمغة (ج/جرام):</label>
-                                    <input type="number" x-model.number="calcCraftsmanship" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white font-bold focus:outline-none focus:border-amber-500" :class="{ 'bg-slate-100 text-slate-900 border-slate-300': !darkMode }">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-gradient-to-br from-amber-500/10 to-slate-950 p-8 rounded-2xl border border-amber-500/20 text-center flex flex-col justify-center items-center" :class="{ 'from-amber-50 to-slate-100': !darkMode }">
-                        <span class="text-xs font-bold text-amber-500 uppercase tracking-widest">التكلفة الإجمالية الواقعية</span>
-                        <div class="text-4xl sm:text-5xl font-black text-white dark:text-white mt-3" :class="{ 'text-slate-900': !darkMode }" x-text="calculatedPrice + ' ج.م'"></div>
-                        
-                        <div class="mt-6 flex items-center justify-center">
-                            <button @click="likePost()" class="flex items-center gap-2 px-4 py-2 rounded-xl border border-amber-500/40 text-amber-400 hover:bg-amber-500/10 font-bold text-xs" :class="{ 'bg-amber-500 text-slate-950': isLiked }">
-                                ❤️ <span x-text="likesCount"></span> إعجاب الحي
-                            </button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- قسم التعليقات التفاعلي -->
-                <section class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl" :class="{ 'bg-white border-slate-200': !darkMode }">
-                    <h3 class="text-xl font-black text-white dark:text-white" :class="{ 'text-slate-900': !darkMode }">💬 آراء وتجارب الزوار</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input type="text" x-model="newCommentName" placeholder="اسمك الكريم..." class="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" :class="{ 'bg-slate-100 text-slate-900 border-slate-300': !darkMode }">
-                        <div class="flex gap-2">
-                            <input type="text" x-model="newCommentText" placeholder="اكتب تعليقك..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" :class="{ 'bg-slate-100 text-slate-900 border-slate-300': !darkMode }">
-                            <button @click="addComment()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm transition">نشر</button>
-                        </div>
-                    </div>
-                    <div class="space-y-3 pt-4 border-t border-slate-800" :class="{ 'border-slate-200': !darkMode }">
-                        <template x-for="comment in comments">
-                            <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800/60 space-y-1" :class="{ 'bg-slate-50 border-slate-200': !darkMode }">
-                                <div class="flex justify-between items-center">
-                                    <span class="font-bold text-amber-500 text-sm" x-text="comment.name"></span>
-                                    <span class="text-[10px] text-slate-500" x-text="comment.date"></span>
-                                </div>
-                                <p class="text-xs text-slate-300 dark:text-slate-300" :class="{ 'text-slate-700': !darkMode }" x-text="comment.text"></p>
-                            </div>
-                        </template>
-                    </div>
-                </section>
-            </div>
-
-            <!-- صفحة تفاصيل العيار -->
-            <div x-show="currentView === 'carat-page'" class="space-y-8">
-                <button @click="currentView = 'home'; selectedCarat = null;" class="flex items-center gap-2 text-sm font-bold text-amber-500 bg-amber-500/10 px-4 py-2.5 rounded-xl hover:bg-amber-500/20 transition">
-                    &larr; العودة للرئيسية
-                </button>
-                <div class="bg-slate-900 p-8 rounded-3xl border border-slate-800 text-center" :class="{ 'bg-white border-slate-200': !darkMode }">
-                    <h1 class="text-3xl font-black text-amber-500" x-text="'تفاصيل عيار ' + selectedCarat"></h1>
-                    <p class="text-sm text-slate-400 mt-2">هذا العيار يعكس القيمة الواقعية تماماً كما تُتداول في محلات الصاغة المصرية اليوم.</p>
-                </div>
-            </div>
-        </main>
     </div>
-
-    <!-- زر المساعد الذكي العائم -->
-    <div class="fixed bottom-6 left-6 z-50">
-        <button @click="chatOpen = !chatOpen" class="bg-gradient-to-r from-amber-500 to-yellow-500 hover:scale-105 text-slate-950 font-black p-4 rounded-full shadow-2xl flex items-center justify-center transition">
-            🤖
-        </button>
-        <div x-show="chatOpen" class="absolute bottom-16 left-0 w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-96 z-50">
-            <div class="bg-slate-800 p-4 flex justify-between items-center border-b border-slate-700">
-                <span class="font-bold text-amber-400 text-sm">🤖 مساعد الأسعار الذكي</span>
-                <button @click="chatOpen = false" class="text-slate-400 hover:text-white">&times;</button>
-            </div>
-            <div class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
-                <template x-for="log in chatLogs">
-                    <div :class="log.sender === 'user' ? 'text-left' : 'text-right'">
-                        <div :class="log.sender === 'user' ? 'bg-amber-500 text-slate-950 inline-block p-2.5 rounded-2xl max-w-[80%]' : 'bg-slate-800 text-slate-200 inline-block p-2.5 rounded-2xl max-w-[80%]' " x-text="log.text"></div>
-                    </div>
-                </template>
-            </div>
-            <div class="p-3 bg-slate-800 border-t border-slate-700 flex gap-2">
-                <input type="text" x-model="chatMessage" @keydown.enter="sendChat()" placeholder="اسأل عن الأسعار الحقيقية..." class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
-                <button @click="sendChat()" class="bg-amber-500 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs">إرسال</button>
-            </div>
-        </div>
-    </div>
-
-    <footer class="bg-slate-900 border-t border-slate-800 py-8 mt-12 text-center text-sm text-slate-400" :class="{ 'bg-white border-slate-200 text-slate-600': !darkMode }">
-        <p>جميع الحقوق محفوظة © 2026 - منصة AURA GOLD (أسعار صاغة واقعية وحقيقية)</p>
-    </footer>
 </body>
 </html>
-
-<script>
-async function askAuraGoldAssistant(userMessage) {
-    const apiKey = 
-    // استخدام نموذج gemini-2.5-flash أو gemini-1.5-flash المتاح للـ API
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-    const data = {
-        contents: [
-            {
-                role: "user",
-                parts: [{ text: userMessage }]
-            }
-        ],
-        // وضع التعليمات (System Instruction) لتوجيه المساعد ليكون رسمياً وخاصاً بالموقع فقط
-        systemInstruction: {
-            parts: [{ text: `أنت المساعد الرسمي لموقع "Aura Gold" للمجوهرات والذهب. مهمتك الأساسية هي الإجابة عن استفسارات الزوار المتعلقة بالمنتجات، الأسعار، والخدمات الخاصة بالموقع فقط بأسلوب رسمي، راقي، وودود يشبه خدمة العملاء المحترفين.\nقواعد صارمة:\n1. الالتزام بالموقع فقط: إذا سأل الزائر عن أي شيء خارج نطاق الذهب، والمجوهرات، أو موقع Aura Gold، اعتذر بأدب شديد واعرض عليه مساعدته فيما يخص منتجات الموقع فقط.\n2. تجنب التكرار: لا تكرر نفس الجملة الثابتة أبداً، افهم قصد السائل وصغ إجابتك بطريقة طبيعية ومباشرة وكأنك موظف مبيعات بشري يتحدث بطلاقة.\n3. الأسلوب: استخدم لغة عربية فصحى رسمية ولكنها سلسة ومريحة للزائر.` }]
-        }
-    };
-
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-        const reply = result.candidates[0].content.parts[0].text;
-        return reply;
-    } catch (error) {
-        console.error("خطأ في الاتصال:", error);
-        return "عذراً يا فندم، حدث خطأ بسيط. كيف يمكنني مساعدتك بخصوص مجوهرات Aura Gold؟";
-    }
-}
-</script>
