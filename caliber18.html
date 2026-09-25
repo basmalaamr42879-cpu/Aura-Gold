@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إيجبت غولد | عيار 18</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body class="dark-theme">
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-coins gold-text"></i>
+                <span class="gold-gradient-text">إيجبت غولد</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">عيار 24</a></li>
+                <li><a href="caliber21.html">عيار 21</a></li>
+                <li><a href="caliber18.html" class="active-link">عيار 18</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" onclick="toggleTheme()"><i id="theme-icon" class="fa-solid fa-sun"></i></button>
+                <button id="auth-nav-btn" class="gold-btn" onclick="openModal()">تسجيل الدخول</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <h1>أسعار <span class="gold-text">عيار 18</span> الاقتصادي</h1>
+        <p class="hero-desc">جدول تحديث يومي مخصص لأسعار عيار 18 في الأسواق المحلية والوطن العربي مقابل الدولار.</p>
+    </header>
+
+    <main class="main-container">
+        <div class="content-layout">
+            
+            <section class="table-section">
+                <div class="section-header">
+                    <div class="live-indicator">
+                        <span class="pulse-dot"></span>
+                        <h2>أسعار عيار 18 اليوم</h2>
+                    </div>
+                    <span class="badge">مباشر</span>
+                </div>
+                
+                <div class="table-wrapper">
+                    <table class="gold-table">
+                        <thead>
+                            <tr>
+                                <th>الدولة</th>
+                                <th>السعر بالعملة المحلية</th>
+                                <th>السعر بالدولار الأمريكي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="country-cell">🇪🇬 جمهورية مصر العربية</td>
+                                <td class="price-local">3,086 جنيه</td>
+                                <td class="price-usd">$62.59</td>
+                            </tr>
+                            <tr>
+                                <td class="country-cell">🇸🇦 المملكة العربية السعودية</td>
+                                <td class="price-local">234.95 ريال</td>
+                                <td class="price-usd">$62.59</td>
+                            </tr>
+                            <tr>
+                                <td class="country-cell">🇦🇪 الإمارات العربية المتحدة</td>
+                                <td class="price-local">229.80 درهم</td>
+                                <td class="price-usd">$62.59</td>
+                            </tr>
+                            <tr>
+                                <td class="country-cell">🇰🇼 دولة الكويت</td>
+                                <td class="price-local">19.20 دينار</td>
+                                <td class="price-usd">$62.59</td>
+                            </tr>
+                            <tr>
+                                <td class="country-cell">🇶🇦 دولة قطر</td>
+                                <td class="price-local">228.00 ريال</td>
+                                <td class="price-usd">$62.59</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <aside class="sidebar-section">
+                <div class="action-card">
+                    <h3>تواصل ومشاركة</h3>
+                    <p class="card-text">للاستفسارات المباشرة يمكنك مراسلتي فوراً، أو مشاركة الأسعار مع أصدقائك بنقرة واحدة.</p>
+                    <div class="card-buttons">
+                        <a href="https://wa.me" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+                            <i class="fa-brands fa-whatsapp"></i> تواصل معي عبر واتساب
+                        </a>
+                        <button class="share-btn" onclick="shareSite()">
+                            <i class="fa-solid fa-share-nodes"></i> مشاركة الموقع
+                        </button>
+                    </div>
+                </div>
+
+                <div id="user-widget" class="user-card hidden">
+                    <div class="user-info">
+                        <div class="user-avatar">ح</div>
+                        <div>
+                            <h4 id="widget-username">اسم المستخدم</h4>
+                            <p>عضوية نشطة</p>
+                        </div>
+                    </div>
+                    <button class="logout-link" onclick="handleLogout()">تسجيل الخروج</button>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>© 2026 جميع الحقوق محفوظة لـ إيجبت غولد</p>
+    </footer>
+
+    <div id="auth-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <button class="close-modal-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3>مرحباً بك</h3>
+            <p class="modal-subtitle">قم بتسجيل الدخول لمتابعة حركة السوق.</p>
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="username-field" required placeholder="اكتب اسمك هنا">
+                </div>
+                <div class="input-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="submit-btn">دخول</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
