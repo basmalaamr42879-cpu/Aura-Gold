@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إيجبت غولد | أسعار الذهب في مصر والوطن العربي</title>
-    <!-- Tailwind CSS cdn -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://jsdelivr.net"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cloudflare.com">
@@ -21,7 +21,7 @@
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
 
     <!-- Navbar -->
-    <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border-b border-slate-200 dark:border-slate-800 px-4 py-3">
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 px-4 py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <i class="fa-solid font-black fa-coins text-amber-500 text-2xl"></i>
@@ -30,11 +30,11 @@
             
             <div class="flex items-center gap-4">
                 <!-- Dark Mode Toggle -->
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-amber-500 transition-all">
+                <button id="theme-toggle" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-amber-500 transition-all cursor-pointer" aria-label="تبديل الوضع الليلي">
                     <i id="theme-icon" class="fa-solid fa-sun text-lg"></i>
                 </button>
                 <!-- Auth Button -->
-                <button id="auth-nav-btn" onclick="toggleModal('auth-modal')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2 rounded-xl font-semibold text-sm transition-all shadow-md shadow-amber-500/20">
+                <button id="auth-nav-btn" onclick="toggleModal('auth-modal')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2 rounded-xl font-semibold text-sm transition-all shadow-md shadow-amber-500/20 cursor-pointer">
                     تسجيل الدخول
                 </button>
             </div>
@@ -42,17 +42,17 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="max-w-7xl mx-auto px-4 py-12 text-center">
+    <header class="max-w-7xl mx-auto px-4 py-10 text-center">
         <h1 class="text-3xl md:text-5xl font-black mb-4 leading-tight">
             أسعار الذهب اليوم في <span class="text-amber-500">مصر</span> والوطن العربي
         </h1>
         <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
-            متابعة حية ومباشرة لأسعار جميع عيارات الذهب مقابل العملات المحلية والدولار الأمريكي بتحديث مستمر وتصميم عصري.
+            متابعة حية ومباشرة لأسعار جميع عيارات الذهب مقابل العملات المحلية والدولار الأمريكي بتحديث مستمر وتصميم عصري متناسق.
         </p>
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 pb-24 grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <main class="max-w-7xl mx-auto px-4 pb-20 grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         <!-- Tables Content (2 Cols) -->
         <div class="lg:col-span-2 space-y-8">
@@ -64,9 +64,9 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                         </span>
-                        <h2 class="text-xl font-bold flex items-center gap-2">أسعار الذهب في مصر</h2>
+                        <h2 class="text-xl font-bold">أسعار الذهب في مصر</h2>
                     </div>
-                    <span class="text-xs bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full text-slate-500">تحديث تلقائي</span>
+                    <span class="text-xs bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full text-slate-500">بالتحديث المباشر</span>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -74,38 +74,38 @@
                         <thead>
                             <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 text-sm">
                                 <th class="pb-3 font-semibold">العيار</th>
-                                <th class="pb-3 font-semibold">السعر (جنية مصري)</th>
+                                <th class="pb-3 font-semibold">السعر (جنيه مصري)</th>
                                 <th class="pb-3 font-semibold">السعر (دولار أمريكي)</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm md:text-base">
                             <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
                                 <td class="py-4 font-semibold flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-amber-500"></div>عيار 24
+                                    <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>عيار 24
                                 </td>
                                 <td class="py-4 font-bold text-amber-500">4,114 ج.م</td>
-                                <td class="py-4 text-slate-500">$83.45</td>
+                                <td class="py-4 text-slate-500 dark:text-slate-400">$83.45</td>
                             </tr>
                             <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
                                 <td class="py-4 font-semibold flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-yellow-500"></div>عيار 21 (الأكثر طلبًا)
+                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>عيار 21 (الأكثر طلبًا)
                                 </td>
                                 <td class="py-4 font-bold text-amber-500">3,600 ج.م</td>
-                                <td class="py-4 text-slate-500">$73.02</td>
+                                <td class="py-4 text-slate-500 dark:text-slate-400">$73.02</td>
                             </tr>
                             <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
                                 <td class="py-4 font-semibold flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-yellow-600"></div>عيار 18
+                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-600"></div>عيار 18
                                 </td>
                                 <td class="py-4 font-bold text-amber-500">3,086 ج.م</td>
-                                <td class="py-4 text-slate-500">$62.59</td>
+                                <td class="py-4 text-slate-500 dark:text-slate-400">$62.59</td>
                             </tr>
                             <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
                                 <td class="py-4 font-semibold flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full bg-amber-700"></div>جنيه الذهب
+                                    <div class="w-2.5 h-2.5 rounded-full bg-amber-700"></div>جنيه الذهب
                                 </td>
                                 <td class="py-4 font-bold text-amber-500">28,800 ج.م</td>
-                                <td class="py-4 text-slate-500">$584.16</td>
+                                <td class="py-4 text-slate-500 dark:text-slate-400">$584.16</td>
                             </tr>
                         </tbody>
                     </table>
@@ -114,7 +114,7 @@
 
             <!-- Arab World Prices -->
             <section class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h2 class="text-xl font-bold mb-6 flex items-center gap-2">عيار 24 في الدول العربية ومقارنته بالدولار</h2>
+                <h2 class="text-xl font-bold mb-6">عيار 24 في الوطن العربي ومقارنته بالدولار</h2>
                 
                 <div class="overflow-x-auto">
                     <table class="w-full text-right border-collapse">
@@ -127,12 +127,12 @@
                         </thead>
                         <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm md:text-base">
                             <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold">🇸🇦 المملكة العربية السعودية</td>
+                                <td class="py-4 font-semibold">🇸🇦 السعودية</td>
                                 <td class="py-4 font-bold">313.25 ريال</td>
                                 <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
                             </tr>
                             <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold">🇦🇪 الإمارات العربية المتحدة</td>
+                                <td class="py-4 font-semibold">🇦🇪 الإمارات</td>
                                 <td class="py-4 font-bold">306.50 درهم</td>
                                 <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
                             </tr>
@@ -157,8 +157,6 @@
             <!-- Share & Connect Quick Widget -->
             <div class="bg-gradient-to-br from-amber-500 to-yellow-600 text-slate-950 rounded-3xl p-6 shadow-xl shadow-amber-500/10">
                 <h3 class="text-xl font-black mb-2">تواصل مباشر ومشاركة</h3>
-                <p class="text-sm opacity-90 mb-6">يمكنك مشاركة الأسعار الحالية مع أصدقائك أو التواصل معي فوراً للاستفسارات.</p>
+                <p class="text-sm opacity-90 mb-6">شارك الأسعار مع أصدقائك أو تواصل معي عبر الواتساب للاستفسارات.</p>
                 
                 <div class="space-y-3">
-  تواصل معي عبر واتسابمشاركة الموقعممستخدم زائرمسجّل بنجاحتسجيل الخروج© 2026 جميع الحقوق محفوظة لـ إيجبت غولدمرحباً بكقم بتسجيل الدخول لمتابعة الأسعار أولاً بأول.اسم المستخدمكلمة المروردخول                  <!-- WhatsApp Btn -->
-مرحباً بكقم بتسجيل الدخول لمتابعة الأسعار أولاً بأول.اسم المستخدمكلمة المروردخول// Dark Mode Logicconst themeToggleBtn = document.getElementById('theme-toggle');const themeIcon = document.getElementById('theme-icon');const htmlElement = document.documentElement;themeToggleBtn.addEventListener('click', () => {if (htmlElement.classList.contains('dark')) {htmlElement.classList.remove('dark');themeIcon.className = 'fa-solid fa-moon text-lg';localStorage.setItem('theme', 'light');} else {htmlElement.classList.add('dark');themeIcon.className = 'fa-solid fa-sun text-lg';localStorage.setItem('theme', 'dark');}});// Sync with system or local storageif (localStorage.getItem('theme') === 'light') {htmlElement.classList.remove('dark');themeIcon.className = 'fa-solid fa-moon text-lg';}// Modal Toggle Functionfunction toggleModal(modalId) {const modal = document.getElementById(modalId);if (modal.classList.contains('hidden')) {modal.classList.remove('hidden');setTimeout(() => {modal.classList.remove('opacity-0');modal.children.classList.remove('scale-95');}, 10);} else {modal.classList.add('opacity-0');modal.children.classList.add('scale-95');setTimeout(() => modal.classList.add('hidden'), 300);}}// Login Logicfunction handleLogin(event) {event.preventDefault();const username = document.getElementById('username').value;// UI Switch upon logindocument.getElementById('auth-nav-btn').innerText = 'خروج';document.getElementById('auth-nav-btn').setAttribute('onclick', 'logout()');document.getElementById('widget-username').innerText = username;document.getElementById('user-widget').classList.remove('hidden');toggleModal('auth-modal');}function logout() {document.getElementById('auth-nav-btn').innerText = 'تسجيل الدخول';document.getElementById('auth-nav-btn').setAttribute('onclick', "toggleModal('auth-modal')");document.getElementById('user-widget').classList.add('hidden');document.getElementById('username').value = '';}// Web Share APIfunction shareWebsite() {if (navigator.share) {navigator.share({title: 'إيجبت غولد',text: 'تابع أسعار الذهب لحظة بلحظة في مصر والوطن العربي مقارنة بالدولار',url: window.location.href}).catch(console.error);} else {alert('انسخ هذا الرابط لمشاركته: ' + window.location.href);}}
