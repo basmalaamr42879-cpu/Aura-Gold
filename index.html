@@ -1,162 +1,152 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إيجبت غولد | أسعار الذهب في مصر والوطن العربي</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://jsdelivr.net"></script>
-    <!-- Font Awesome Icons -->
+    <title>إيجبت غولد | عيار 24</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome للمصداقية والأيقونات -->
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- Google Fonts (Cairo) -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-        }
-    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
+<body class="dark-theme">
 
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 px-4 py-3">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid font-black fa-coins text-amber-500 text-2xl"></i>
-                <span class="text-xl font-bold tracking-wide bg-gradient-to-l from-amber-500 to-yellow-400 bg-clip-text text-transparent">إيجبت غولد</span>
+    <!-- الهيدر ونظام التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-coins gold-text"></i>
+                <span class="gold-gradient-text">إيجبت غولد</span>
             </div>
-            
-            <div class="flex items-center gap-4">
-                <!-- Dark Mode Toggle -->
-                <button id="theme-toggle" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-amber-500 transition-all cursor-pointer" aria-label="تبديل الوضع الليلي">
-                    <i id="theme-icon" class="fa-solid fa-sun text-lg"></i>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active-link">عيار 24</a></li>
+                <li><a href="caliber21.html">عيار 21</a></li>
+                <li><a href="caliber18.html">عيار 18</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" onclick="toggleTheme()" title="تبديل الإضاءة">
+                    <i id="theme-icon" class="fa-solid fa-sun"></i>
                 </button>
-                <!-- Auth Button -->
-                <button id="auth-nav-btn" onclick="toggleModal('auth-modal')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2 rounded-xl font-semibold text-sm transition-all shadow-md shadow-amber-500/20 cursor-pointer">
-                    تسجيل الدخول
-                </button>
+                <button id="auth-nav-btn" class="gold-btn" onclick="openModal()">تسجيل الدخول</button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="max-w-7xl mx-auto px-4 py-10 text-center">
-        <h1 class="text-3xl md:text-5xl font-black mb-4 leading-tight">
-            أسعار الذهب اليوم في <span class="text-amber-500">مصر</span> والوطن العربي
-        </h1>
-        <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
-            متابعة حية ومباشرة لأسعار جميع عيارات الذهب مقابل العملات المحلية والدولار الأمريكي بتحديث مستمر وتصميم عصري متناسق.
-        </p>
+    <!-- واجهة الموقع الترحيبية -->
+    <header class="hero-section">
+        <h1>أسعار <span class="gold-text">عيار 24</span> في مصر والوطن العربي</h1>
+        <p class="hero-desc">متابعة حية ومباشرة لأسعار الذهب النقي عيار 24 قيراط ومقارنتها بالدولار الأمريكي تحديث مستمر.</p>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 pb-20 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <!-- Tables Content (2 Cols) -->
-        <div class="lg:col-span-2 space-y-8">
-            <!-- Egypt Prices -->
-            <section class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-                <div class="flex justify-between items-center mb-6">
-                    <div class="flex items-center gap-3">
-                        <span class="flex h-3 w-3 relative">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                        </span>
-                        <h2 class="text-xl font-bold">أسعار الذهب في مصر</h2>
+    <!-- المحتوى الرئيسي والجداول -->
+    <main class="main-container">
+        <div class="content-layout">
+            
+            <!-- جدول الأسعار -->
+            <section class="table-section">
+                <div class="section-header">
+                    <div class="live-indicator">
+                        <span class="pulse-dot"></span>
+                        <h2>أسعار عيار 24 اليوم</h2>
                     </div>
-                    <span class="text-xs bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full text-slate-500">بالتحديث المباشر</span>
+                    <span class="badge">مباشر</span>
                 </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-right border-collapse">
-                        <thead>
-                            <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 text-sm">
-                                <th class="pb-3 font-semibold">العيار</th>
-                                <th class="pb-3 font-semibold">السعر (جنيه مصري)</th>
-                                <th class="pb-3 font-semibold">السعر (دولار أمريكي)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm md:text-base">
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold flex items-center gap-2">
-                                    <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>عيار 24
-                                </td>
-                                <td class="py-4 font-bold text-amber-500">4,114 ج.م</td>
-                                <td class="py-4 text-slate-500 dark:text-slate-400">$83.45</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold flex items-center gap-2">
-                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>عيار 21 (الأكثر طلبًا)
-                                </td>
-                                <td class="py-4 font-bold text-amber-500">3,600 ج.م</td>
-                                <td class="py-4 text-slate-500 dark:text-slate-400">$73.02</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold flex items-center gap-2">
-                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-600"></div>عيار 18
-                                </td>
-                                <td class="py-4 font-bold text-amber-500">3,086 ج.م</td>
-                                <td class="py-4 text-slate-500 dark:text-slate-400">$62.59</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold flex items-center gap-2">
-                                    <div class="w-2.5 h-2.5 rounded-full bg-amber-700"></div>جنيه الذهب
-                                </td>
-                                <td class="py-4 font-bold text-amber-500">28,800 ج.م</td>
-                                <td class="py-4 text-slate-500 dark:text-slate-400">$584.16</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Arab World Prices -->
-            <section class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h2 class="text-xl font-bold mb-6">عيار 24 في الوطن العربي ومقارنته بالدولار</h2>
                 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-right border-collapse">
+                <div class="table-wrapper">
+                    <table class="gold-table">
                         <thead>
-                            <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 text-sm">
-                                <th class="pb-3 font-semibold">الدولة</th>
-                                <th class="pb-3 font-semibold">العملة المحلية</th>
-                                <th class="pb-3 font-semibold">ما يعادله بالدولار</th>
+                            <tr>
+                                <th>الدولة</th>
+                                <th>السعر بالعملة المحلية</th>
+                                <th>السعر بالدولار الأمريكي</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm md:text-base">
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold">🇸🇦 السعودية</td>
-                                <td class="py-4 font-bold">313.25 ريال</td>
-                                <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
+                        <tbody>
+                            <tr>
+                                <td class="country-cell">🇪🇬 جمهورية مصر العربية</td>
+                                <td class="price-local">4,114 جنيه</td>
+                                <td class="price-usd">$83.45</td>
                             </tr>
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold">🇦🇪 الإمارات</td>
-                                <td class="py-4 font-bold">306.50 درهم</td>
-                                <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
+                            <tr>
+                                <td class="country-cell">🇸🇦 المملكة العربية السعودية</td>
+                                <td class="price-local">313.25 ريال</td>
+                                <td class="price-usd">$83.45</td>
                             </tr>
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold">🇰🇼 الكويت</td>
-                                <td class="py-4 font-bold">25.60 دينار</td>
-                                <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
+                            <tr>
+                                <td class="country-cell">🇦🇪 الإمارات العربية المتحدة</td>
+                                <td class="price-local">306.50 درهم</td>
+                                <td class="price-usd">$83.45</td>
                             </tr>
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                                <td class="py-4 font-semibold">🇶🇦 قطر</td>
-                                <td class="py-4 font-bold">304.10 ريال</td>
-                                <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
+                            <tr>
+                                <td class="country-cell">🇰🇼 دولة الكويت</td>
+                                <td class="price-local">25.60 دينار</td>
+                                <td class="price-usd">$83.45</td>
+                            </tr>
+                            <tr>
+                                <td class="country-cell">🇶🇦 دولة قطر</td>
+                                <td class="price-local">304.10 ريال</td>
+                                <td class="price-usd">$83.45</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
+
+            <!-- القائمة الجانبية -->
+            <aside class="sidebar-section">
+                <div class="action-card">
+                    <h3>تواصل ومشاركة</h3>
+                    <p class="card-text">للاستفسارات المباشرة يمكنك مراسلتي فوراً، أو مشاركة الأسعار مع أصدقائك بنقرة واحدة.</p>
+                    <div class="card-buttons">
+                        <a href="https://wa.me" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+                            <i class="fa-brands fa-whatsapp"></i> تواصل معي عبر واتساب
+                        </a>
+                        <button class="share-btn" onclick="shareSite()">
+                            <i class="fa-solid fa-share-nodes"></i> مشاركة الموقع
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ويدجت حساب المستخدم بعد تسجيل الدخول -->
+                <div id="user-widget" class="user-card hidden">
+                    <div class="user-info">
+                        <div class="user-avatar">ح</div>
+                        <div>
+                            <h4 id="widget-username">اسم المستخدم</h4>
+                            <p>عضوية نشطة</p>
+                        </div>
+                    </div>
+                    <button class="logout-link" onclick="handleLogout()">تسجيل الخروج</button>
+                </div>
+            </aside>
+
         </div>
+    </main>
 
-        <!-- Sidebar Actions (1 Col) -->
-        <div class="space-y-6">
-            <!-- Share & Connect Quick Widget -->
-            <div class="bg-gradient-to-br from-amber-500 to-yellow-600 text-slate-950 rounded-3xl p-6 shadow-xl shadow-amber-500/10">
-                <h3 class="text-xl font-black mb-2">تواصل مباشر ومشاركة</h3>
-                <p class="text-sm opacity-90 mb-6">شارك الأسعار مع أصدقائك أو تواصل معي عبر الواتساب للاستفسارات.</p>
-                
-                <div class="space-y-3">
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <p>© 2026 جميع الحقوق محفوظة لـ إيجبت غولد</p>
+    </footer>
+
+    <!-- مودال تسجيل الدخول -->
+    <div id="auth-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <button class="close-modal-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3>مرحباً بك</h3>
+            <p class="modal-subtitle">قم بتسجيل الدخول لمتابعة حركة السوق.</p>
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="username-field" required placeholder="اكتب اسمك هنا">
+                </div>
+                <div class="input-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="submit-btn">دخول</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
