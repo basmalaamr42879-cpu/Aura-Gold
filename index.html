@@ -1,261 +1,164 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" :class="{ 'dark': darkMode }" x-data="{ 
-    darkMode: true,
-    lang: 'ar',
-    toggleLang() {
-        this.lang = this.lang === 'ar' ? 'en' : 'ar';
-        document.documentElement.setAttribute('dir', this.lang === 'ar' ? 'rtl' : 'ltr');
-        document.documentElement.setAttribute('lang', this.lang);
-    }
-}">
+<html lang="ar" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title x-text="lang === 'ar' ? 'Aura Gold | أسعار الذهب الحقيقية واللحظية' : 'Aura Gold | Real-Time Live Gold Prices'"></title>
-    <!-- Tailwind CSS -->
-    <script src="https://tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        gold: { 500: '#EAB308', 600: '#CA8A04' }
-                    }
-                }
-            }
+    <title>إيجبت غولد | أسعار الذهب في مصر والوطن العربي</title>
+    <!-- Tailwind CSS cdn -->
+    <script src="https://jsdelivr.net"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Google Fonts (Cairo) -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
         }
-    </script>
-    <!-- Alpine.js -->
-    <script defer src="https://jsdelivr.net"></script>
-
-    <!-- Google tag (gtag.js) - Aura Gold Tracking -->
-    <script async src="https://googletagmanager.com"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-DKV2TXWG37');
-    </script>
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 dark:bg-slate-950 dark:text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-300" 
-      :class="{ 'bg-slate-50 text-slate-900': !darkMode }"
-      x-data="{ 
-          currentView: 'home', 
-          selectedCarat: null,
-          calcWeight: 10,
-          calcCarat: 21,
-          calcCraftsmanship: 100,
-          liveGoldOunce: 4361.67, 
-          isLiveLoading: false,
-          
-          // المساعد الذكي
-          chatOpen: false,
-          chatMessage: '',
-          chatLogs: [
-              { sender: 'bot', text: 'أهلاً بك! أنا مساعد أورا غولد الذكي. الأسعار هنا حقيقية ومحدثة بناءً على سوق الصاغة المحلي والعالمي.' }
-          ],
-          sendChat() {
-              if(!this.chatMessage.trim()) return;
-              let userText = this.chatMessage;
-              this.chatLogs.push({ sender: 'user', text: userText });
-              this.chatMessage = '';
-              
-              setTimeout(() => {
-                  let reply = 'يمكنك الاعتماد على الحاسبة في الأسفل لمعرفة السعر الدقيق شامل المصنعية والدمغة.';
-                  if(userText.includes('سعر') || userText.includes('21')) {
-                      reply = 'سعر جرام عيار 21 الآن في الصاغة حوالي 6,280 جنيه مصري.';
-                  } else if(userText.includes('أونصة') || userText.includes('ounce')) {
-                      reply = 'سعر أونصة الذهب عالمياً يتداول عند حدود $' + this.liveGoldOunce.toLocaleString();
-                  } else if(userText.includes('24')) {
-                      reply = 'سعر جرام عيار 24 الآن في الصاغة حوالي 7,175 جنيه مصري.';
-                  }
-                  this.chatLogs.push({ sender: 'bot', text: reply });
-              }, 1000);
-          },
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
 
-          // نظام التفاعل والتعليقات
-          likesCount: 1845,
-          isLiked: false,
-          likePost() {
-              if(!this.isLiked) { this.likesCount++; this.isLiked = true; } 
-              else { this.likesCount--; this.isLiked = false; }
-          },
-          comments: [
-              { name: 'أحمد الشريف', text: 'أخيرًا موقع بيعرض الأسعار الواقعية زي الصاغة بالظبط بدون أرقام خيالية.', date: 'منذ 10 دقائق' },
-              { name: 'منى الاستاذ', text: 'الحاسبة ممتازة جداً وسريعة في حساب المصنعية، تسلم إيدك.', date: 'منذ ساعة' }
-          ],
-          newCommentName: '',
-          newCommentText: '',
-          addComment() {
-              if(!this.newCommentName || !this.newCommentText) return;
-              this.comments.unshift({ name: this.newCommentName, text: this.newCommentText, date: 'الآن' });
-              this.newCommentName = '';
-              this.newCommentText = '';
-          },
-
-          fetchLivePrices() {
-              this.isLiveLoading = true;
-              fetch('https://goldprice.org')
-                  .then(response => response.json())
-                  .then(data => {
-                      if(data && data.items && data.items) {
-                          this.liveGoldOunce = data.items.xauPrice;
-                      }
-                      this.isLiveLoading = false;
-                  })
-                  .catch(error => {
-                      this.isLiveLoading = false;
-                  });
-          },
-
-          // أسعار حقيقية وواقعية مستمدة من محلات الصاغة المصرية حالياً
-          get baseGramPrice24() { return 7175; },
-          get baseGramPrice21() { return 6280; },
-          get baseGramPrice18() { return 5385; },
-
-          get calculatedPrice() {
-              let basePrice = this.calcCarat == 24 ? this.baseGramPrice24 : (this.calcCarat == 21 ? this.baseGramPrice21 : this.baseGramPrice18);
-              let total = this.calcWeight * (basePrice + Number(this.calcCraftsmanship));
-              return total.toLocaleString();
-          }
-      }"
-      x-init="fetchLivePrices()">
-
-    <div class="flex-grow">
-        <!-- شريط الأسعار الحي المتحرك -->
-        <div class="bg-amber-500 text-slate-950 font-bold text-sm py-2 overflow-hidden whitespace-nowrap shadow-md flex justify-between items-center px-4">
-            <div class="inline-block animate-pulse">
-                <span>🔴 أونصة الذهب عالمياً: </span>
-                <span class="underline" x-text="'$' + liveGoldOunce.toLocaleString()"></span> 
-                <span> | عيار 21 الآن: 6,280 ج.م (سعر صاغة حقيقي)</span>
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border-b border-slate-200 dark:border-slate-800 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid font-black fa-coins text-amber-500 text-2xl"></i>
+                <span class="text-xl font-bold tracking-wide bg-gradient-to-l from-amber-500 to-yellow-400 bg-clip-text text-transparent">إيجبت غولد</span>
             </div>
-            <button @click="fetchLivePrices()" class="text-xs bg-slate-950 text-amber-400 px-2.5 py-1 rounded-lg hover:bg-slate-900 transition">
-                <span x-show="!isLiveLoading">🔄 تحديث الحين</span>
-                <span x-show="isLiveLoading">⏳ جاري السحب...</span>
-            </button>
+            
+            <div class="flex items-center gap-4">
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-amber-500 transition-all">
+                    <i id="theme-icon" class="fa-solid fa-sun text-lg"></i>
+                </button>
+                <!-- Auth Button -->
+                <button id="auth-nav-btn" onclick="toggleModal('auth-modal')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2 rounded-xl font-semibold text-sm transition-all shadow-md shadow-amber-500/20">
+                    تسجيل الدخول
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-7xl mx-auto px-4 py-12 text-center">
+        <h1 class="text-3xl md:text-5xl font-black mb-4 leading-tight">
+            أسعار الذهب اليوم في <span class="text-amber-500">مصر</span> والوطن العربي
+        </h1>
+        <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
+            متابعة حية ومباشرة لأسعار جميع عيارات الذهب مقابل العملات المحلية والدولار الأمريكي بتحديث مستمر وتصميم عصري.
+        </p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 pb-24 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Tables Content (2 Cols) -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- Egypt Prices -->
+            <section class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center gap-3">
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                        </span>
+                        <h2 class="text-xl font-bold flex items-center gap-2">أسعار الذهب في مصر</h2>
+                    </div>
+                    <span class="text-xs bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full text-slate-500">تحديث تلقائي</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 text-sm">
+                                <th class="pb-3 font-semibold">العيار</th>
+                                <th class="pb-3 font-semibold">السعر (جنية مصري)</th>
+                                <th class="pb-3 font-semibold">السعر (دولار أمريكي)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm md:text-base">
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                <td class="py-4 font-semibold flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-amber-500"></div>عيار 24
+                                </td>
+                                <td class="py-4 font-bold text-amber-500">4,114 ج.م</td>
+                                <td class="py-4 text-slate-500">$83.45</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                <td class="py-4 font-semibold flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-yellow-500"></div>عيار 21 (الأكثر طلبًا)
+                                </td>
+                                <td class="py-4 font-bold text-amber-500">3,600 ج.م</td>
+                                <td class="py-4 text-slate-500">$73.02</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                <td class="py-4 font-semibold flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-yellow-600"></div>عيار 18
+                                </td>
+                                <td class="py-4 font-bold text-amber-500">3,086 ج.م</td>
+                                <td class="py-4 text-slate-500">$62.59</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                <td class="py-4 font-semibold flex items-center gap-2">
+                                    <div class="w-2 h-2 rounded-full bg-amber-700"></div>جنيه الذهب
+                                </td>
+                                <td class="py-4 font-bold text-amber-500">28,800 ج.م</td>
+                                <td class="py-4 text-slate-500">$584.16</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Arab World Prices -->
+            <section class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2">عيار 24 في الدول العربية ومقارنته بالدولار</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 text-sm">
+                                <th class="pb-3 font-semibold">الدولة</th>
+                                <th class="pb-3 font-semibold">العملة المحلية</th>
+                                <th class="pb-3 font-semibold">ما يعادله بالدولار</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm md:text-base">
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                <td class="py-4 font-semibold">🇸🇦 المملكة العربية السعودية</td>
+                                <td class="py-4 font-bold">313.25 ريال</td>
+                                <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                <td class="py-4 font-semibold">🇦🇪 الإمارات العربية المتحدة</td>
+                                <td class="py-4 font-bold">306.50 درهم</td>
+                                <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                <td class="py-4 font-semibold">🇰🇼 الكويت</td>
+                                <td class="py-4 font-bold">25.60 دينار</td>
+                                <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                <td class="py-4 font-semibold">🇶🇦 قطر</td>
+                                <td class="py-4 font-bold">304.10 ريال</td>
+                                <td class="py-4 text-emerald-500 font-semibold">$83.45</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
 
-        <!-- الشريط العلوي Navbar -->
-        <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 transition-colors" :class="{ 'bg-white/90 border-slate-200': !darkMode }">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-                <div @click="currentView = 'home'; selectedCarat = null;" class="flex items-center gap-3 cursor-pointer">
-                    <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-2.5 rounded-xl shadow-lg shadow-amber-500/20">
-                        <svg class="w-7 h-7 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div>
-                        <span class="text-xl font-black tracking-wider bg-gradient-to-r from-amber-500 to-yellow-200 bg-clip-text text-transparent">AURA GOLD</span>
-                        <span class="block text-[10px] text-slate-400 tracking-widest uppercase">Real-Time Market</span>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <button @click="toggleLang()" class="text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 hover:border-amber-500 text-amber-400 transition" x-text="lang === 'ar' ? 'English 🇺🇸' : 'العربية 🇪🇬'"></button>
-                    <button @click="darkMode = !darkMode" class="p-2.5 rounded-xl border border-slate-700 hover:border-amber-500 text-amber-400 transition">
-                        <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        <svg x-show="!darkMode" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003"></svg>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <!-- المحتوى الرئيسي للموقع -->
-        <main class="max-w-4xl mx-auto px-4 py-10">
-            <!-- أسعار الذهب الحالية -->
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                <div class="p-6 rounded-2xl border transition shadow-sm bg-slate-900 border-slate-800" :class="{ 'bg-white border-slate-200': !darkMode }">
-                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider" x-text="lang === 'ar' ? 'عيار 24 (السبائك والأنقى)' : 'Carat 24 (Pure Gold)'"></h3>
-                    <p class="text-3xl font-black text-amber-500 mt-2" x-text="baseGramPrice24.toLocaleString() + ' ج.م'"></p>
-                </div>
-                <div class="p-6 rounded-2xl border transition shadow-md bg-gradient-to-b from-slate-900 to-slate-900/40 border-amber-500/30" :class="{ 'bg-white border-amber-500/20': !darkMode }">
-                    <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider" x-text="lang === 'ar' ? 'عيار 21 (الأكثر طلباً)' : 'Carat 21 (Most Popular)'"></h3>
-                    <p class="text-3xl font-black text-amber-500 mt-2" x-text="baseGramPrice21.toLocaleString() + ' ج.م'"></p>
-                </div>
-                <div class="p-6 rounded-2xl border transition shadow-sm bg-slate-900 border-slate-800" :class="{ 'bg-white border-slate-200': !darkMode }">
-نظام التفاعل والتعليقات
-          likesCount: 1845,
-          isLiked: false,
-          likePost() {
-              if(!this.isLiked) { this.likesCount++; this.isLiked = true; } 
-              else { this.likesCount--; this.isLiked = false; }
-          },
-          comments: [
-              { name: 'أحمد الشريف', text: 'أخيرًا موقع بيعرض الأسعار الواقعية زي الصاغة بالظبط بدون أرقام خيالية.', date: 'منذ 10 دقائق' },
-              { name: 'منى الاستاذ', text: 'الحاسبة ممتازة جداً وسريعة في حساب المصنعية، تسلم إيدك.', date: 'منذ ساعة' }
-          ],
-          newCommentName: '',
-          newCommentText: '',
-          addComment() {
-              if(!this.newCommentName || !this.newCommentText) return;
-              this.comments.unshift({ name: this.newCommentName, text: this.newCommentText, date: 'الآن' });
-              this.newCommentName = '';
-              this.newCommentText = '';
-          },
-
-          fetchLivePrices() {
-              this.isLiveLoading = true;
-              fetch('https://goldprice.org')
-                  .then(response => response.json())
-                  .then(data => {
-                      if(data && data.items && data.items) {
-                          this.liveGoldOunce = data.items.xauPrice;
-                      }
-                      this.isLiveLoading = false;
-                  })
-                  .catch(error => {
-                      this.isLiveLoading = false;
-                  });
-          },
-
-          // أسعار حقيقية وواقعية مستمدة من محلات الصاغة المصرية حالياً
-          get baseGramPrice24() { return 7175; },
-          get baseGramPrice21() { return 6280; },
-          get baseGramPrice18() { return 5385; },
-
-          get calculatedPrice() {
-              let basePrice = this.calcCarat == 24 ? this.baseGramPrice24 : (this.calcCarat == 21 ? this.baseGramPrice21 : this.baseGramPrice18);
-              let total = this.calcWeight * (basePrice + Number(this.calcCraftsmanship));
-              return total.toLocaleString();
-          }
-      }"
-      x-init="fetchLivePrices()">
-
-    <div>
-        <!-- شريط الأسعار الحي المتحرك -->
-        <div class="bg-amber-500 text-slate-950 font-bold text-sm py-2 overflow-hidden whitespace-nowrap shadow-md flex justify-between items-center px-4">
-            <div class="inline-block animate-pulse">
-                <span>🔴 أونصة الذهب عالمياً: </span>
-                <span class="underline" x-text="'$' + liveGoldOunce.toLocaleString()"></span> 
-                <span> | عيار 21 الآن: 6,280 ج.م (سعر صاغة حقيقي)</span>
-            </div>
-            <button @click="fetchLivePrices()" class="text-xs bg-slate-950 text-amber-400 px-2.5 py-1 rounded-lg hover:bg-slate-900 transition">
-                <span x-show="!isLiveLoading">🔄 تحديث الحين</span>
-                <span x-show="isLiveLoading">⏳ جاري السحب...</span>
-            </button>
-        </div>
-
-        <!-- الشريط العلوي Navbar -->
-        <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 transition-colors" :class="{ 'bg-white/90 border-slate-200': !darkMode }">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-                <div @click="currentView = 'home'; selectedCarat = null;" class="flex items-center gap-3 cursor-pointer">
-                    <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-2.5 rounded-xl shadow-lg shadow-amber-500/20">
-                        <svg class="w-7 h-7 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div>
-                        <span class="text-xl font-black tracking-wider bg-gradient-to-r from-amber-500 to-yellow-200 bg-clip-text text-transparent">AURA GOLD</span>
-                        <span class="block text-[10px] text-slate-400 tracking-widest uppercase">Real-Time Market</span>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <button @click="toggleLang()" class="text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 hover:border-amber-500 text-amber-400 transition" x-text="lang === 'ar' ? 'English 🇺🇸' : 'العربية 🇪🇬'"></button>
-                    <button @click="darkMode = !darkMode" class="p-2.5 rounded-xl border border-slate-700 hover:border-amber-500 text-amber-400 transition">
-                        <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        <svg x-show="!darkMode" class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003"></svg>
-                    </button>
-                </div>
-            </div>
-        </header>
-    </div>
-</body>
-</html>
+        <!-- Sidebar Actions (1 Col) -->
+        <div class="space-y-6">
+            <!-- Share & Connect Quick Widget -->
+            <div class="bg-gradient-to-br from-amber-500 to-yellow-600 text-slate-950 rounded-3xl p-6 shadow-xl shadow-amber-500/10">
+                <h3 class="text-xl font-black mb-2">تواصل مباشر ومشاركة</h3>
+                <p class="text-sm opacity-90 mb-6">يمكنك مشاركة الأسعار الحالية مع أصدقائك أو التواصل معي فوراً للاستفسارات.</p>
+                
+                <div class="space-y-3">
+  تواصل معي عبر واتسابمشاركة الموقعممستخدم زائرمسجّل بنجاحتسجيل الخروج© 2026 جميع الحقوق محفوظة لـ إيجبت غولدمرحباً بكقم بتسجيل الدخول لمتابعة الأسعار أولاً بأول.اسم المستخدمكلمة المروردخول                  <!-- WhatsApp Btn -->
+مرحباً بكقم بتسجيل الدخول لمتابعة الأسعار أولاً بأول.اسم المستخدمكلمة المروردخول// Dark Mode Logicconst themeToggleBtn = document.getElementById('theme-toggle');const themeIcon = document.getElementById('theme-icon');const htmlElement = document.documentElement;themeToggleBtn.addEventListener('click', () => {if (htmlElement.classList.contains('dark')) {htmlElement.classList.remove('dark');themeIcon.className = 'fa-solid fa-moon text-lg';localStorage.setItem('theme', 'light');} else {htmlElement.classList.add('dark');themeIcon.className = 'fa-solid fa-sun text-lg';localStorage.setItem('theme', 'dark');}});// Sync with system or local storageif (localStorage.getItem('theme') === 'light') {htmlElement.classList.remove('dark');themeIcon.className = 'fa-solid fa-moon text-lg';}// Modal Toggle Functionfunction toggleModal(modalId) {const modal = document.getElementById(modalId);if (modal.classList.contains('hidden')) {modal.classList.remove('hidden');setTimeout(() => {modal.classList.remove('opacity-0');modal.children.classList.remove('scale-95');}, 10);} else {modal.classList.add('opacity-0');modal.children.classList.add('scale-95');setTimeout(() => modal.classList.add('hidden'), 300);}}// Login Logicfunction handleLogin(event) {event.preventDefault();const username = document.getElementById('username').value;// UI Switch upon logindocument.getElementById('auth-nav-btn').innerText = 'خروج';document.getElementById('auth-nav-btn').setAttribute('onclick', 'logout()');document.getElementById('widget-username').innerText = username;document.getElementById('user-widget').classList.remove('hidden');toggleModal('auth-modal');}function logout() {document.getElementById('auth-nav-btn').innerText = 'تسجيل الدخول';document.getElementById('auth-nav-btn').setAttribute('onclick', "toggleModal('auth-modal')");document.getElementById('user-widget').classList.add('hidden');document.getElementById('username').value = '';}// Web Share APIfunction shareWebsite() {if (navigator.share) {navigator.share({title: 'إيجبت غولد',text: 'تابع أسعار الذهب لحظة بلحظة في مصر والوطن العربي مقارنة بالدولار',url: window.location.href}).catch(console.error);} else {alert('انسخ هذا الرابط لمشاركته: ' + window.location.href);}}
